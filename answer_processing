@@ -1,0 +1,43 @@
+// check whether the mapping triggered any answer
+let no_answer = true
+
+const map = cc.answers.result.values
+// iterate over all rows without the tag names
+// aka iterate over all answer mappings
+for (let r = 1; r < map.length; r++) {
+    // check whether answer conditions are met
+    let valid_answer = true
+    // iterate over all tag values
+    for (let c = 1; c < map[0].length; c ++) {
+        switch (map[r][c]) {
+            case "t":
+                if (ci.slots[map[0][c]]) {
+                    // all valid the slot has been triggered and is supposed to be
+                } else {
+                    // not triggered, but supposed to be
+                    valid_answer = false
+                }
+                break
+            case "n":
+                if (ci.slots[map[0][c]]) {
+                    // triggered, but not supposed to be
+                    valid_answer = false
+                } else {
+                    // all valid the slot has not been triggered and is not supposed to be
+                }
+                break
+            default:
+                // empty field or other
+        }
+    }
+    // if still valid say the answer
+    if (valid_answer) {
+        actions.output(map[r][0])
+        no_answer = false
+    }
+}
+
+// default reply
+if (no_answer) {
+    actions.output("Hello")
+}
