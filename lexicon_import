@@ -1,0 +1,23 @@
+const values = cc.keyphrases.result.values
+const tags = values[0]
+// iterate over all columns
+for (let c = 0; c < tags.length; c++) {
+    
+    let tag = tags[c]
+    let synonyms = []
+    
+    // iterate over all rows without the tags
+    for (let r = 1; r < values.length; r++) {
+        let value = values[r][c]
+        if (value) {
+            value.trim()
+            if (value !== "") {
+                synonyms.push(values[r][c])
+            }
+        }
+    }
+
+    let actiontags = []
+    actiontags.push(tag)
+    actions.setKeyphrase("generated" + c, actiontags, synonyms)
+}
